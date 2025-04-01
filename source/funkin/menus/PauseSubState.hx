@@ -50,6 +50,9 @@ class PauseSubState extends MusicBeatSubstate
 		if (menuItems.contains("Exit to charter") && !PlayState.chartingMode)
 			menuItems.remove("Exit to charter");
 
+		if (controls.touchC)
+			menuItems.remove("Change Controls");
+
 		add(parentDisabler = new FunkinParentDisabler());
 
 		pauseScript = Script.create(Paths.script(script));
@@ -111,6 +114,9 @@ class PauseSubState extends MusicBeatSubstate
 		pauseScript.call("postCreate");
 
 		game.updateDiscordPresence();
+
+		addTouchPad('UP_DOWN', 'A');
+		addTouchPadCamera();
 	}
 
 	override function update(elapsed:Float)
@@ -153,6 +159,7 @@ class PauseSubState extends MusicBeatSubstate
 				FlxG.resetState();
 			case "Change Controls":
 				persistentDraw = false;
+				removeTouchPad();
 				openSubState(new KeybindsOptions());
 			case "Change Options":
 				TreeMenu.lastState = PlayState;
@@ -188,6 +195,14 @@ class PauseSubState extends MusicBeatSubstate
 			}
 
 		super.destroy();
+	}
+
+	override function closeSubState() {
+		persistentUpdate = true;
+		super.closeSubState();
+		removeTouchPad();
+		addTouchPad('UP_DOWN', 'A');
+		addTouchPadCamera();
 	}
 
 	function changeSelection(change:Int = 0):Void
