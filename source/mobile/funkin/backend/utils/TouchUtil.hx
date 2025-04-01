@@ -40,8 +40,9 @@ class TouchUtil
 
 	public static function overlaps(object:FlxObject, ?camera:FlxCamera):Bool
 	{
+		var cam = (camera != null) ? camera : object.camera;
 		for (touch in FlxG.touches.list)
-			if (touch.overlaps(object, camera ?? object.camera))
+			if (touch.overlaps(object, cam))
 				return true;
 
 		return false;
