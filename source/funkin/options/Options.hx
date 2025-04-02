@@ -48,6 +48,7 @@ class Options
 	public static var hitboxPos:Bool = true;
 	public static var hitboxType:String = 'gradient';
 	public static var hitboxAlpha:Float = FlxG.onMobile ? 0.6 : 0;
+	public static var oldPadTexture:Bool = false;
 	public static var touchPadAlpha:Float = FlxG.onMobile ? 0.6 : 0;
 
 	/**

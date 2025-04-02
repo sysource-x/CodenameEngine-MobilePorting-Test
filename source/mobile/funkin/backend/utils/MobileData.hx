@@ -45,7 +45,10 @@ class MobileData
 		save = new FlxSave();
 		save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
 
-		for (folder in ['${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile', Paths.getPath('mobile')])
+		for (folder in [
+			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
+			Paths.getPath('mobile')
+		])
 			if (FileSystem.exists(folder) && FileSystem.isDirectory(folder))
 			{
 				setMap('$folder/DPadModes', dpadModes);

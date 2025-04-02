@@ -29,11 +29,15 @@ class MobileOptions extends OptionsScreen {
 			'extraHints'));
 		add(new NumOption(
 			"Hitbox Opacity",
-			"Change how opaque the hitbox should be",
+			"Change how opaque the Hitbox should be",
 			0.0,
 			1.0,
 			0.1,
 			"hitboxAlpha"));
+		add(new Checkbox(
+			"Use Old Pad Texture",
+			"If checked, the TouchPad will use the old texture it used before",
+			"oldPadTexture"));
 		add(new NumOption(
 			"TouchPad Opacity",
 			"Change how opaque the TouchPad should be",
@@ -44,13 +48,13 @@ class MobileOptions extends OptionsScreen {
 			changeTouchPadAlpha));
 		add(new ArrayOption(
 			"Hitbox Design",
-			"Choose how your hitbox should look like!",
+			"Choose how your Hitbox should look like!",
 			['noGradient', 'noGradientOld', 'gradient', 'hidden'],
 			["No Gradient", "No Gradient (Old)", "Gradient", "Hidden"],
 			'hitboxType'));
 		add(new Checkbox(
 			"Hitbox Position",
-			"If checked, the hitbox will be put at the bottom of the screen, otherwise will stay at the top.",
+			"If checked, the Hitbox will be put at the bottom of the screen, otherwise will stay at the top.",
 			"hitboxPos"));
 		#end
 		#if mobile
@@ -61,12 +65,20 @@ class MobileOptions extends OptionsScreen {
 		#end
 	}
 
-	override function update(elapsed) {
+	override function changeSelection(el:Int, force:Bool = false) {
 		#if mobile
 		final lastScreenTimeOut:Bool = Options.screenTimeOut;
 		if (lastScreenTimeOut != Options.screenTimeOut) LimeSystem.allowScreenTimeout = Options.screenTimeOut;
 		#end
-		super.update(elapsed);
+		#if TOUCH_CONTROLS
+		final lastOldPadTexture:Bool = Options.oldPadTexture;
+		if (lastOldPadTexture != Options.oldPadTexture)
+		{
+			MusicBeatState.getState().removeTouchPad();
+			MusicBeatState.getState().addTouchPad("LEFT_FULL", "A_B");
+		}
+		#end
+		super.changeSelection(el, force);
 	}
 
 	function changeTouchPadAlpha(alpha) {

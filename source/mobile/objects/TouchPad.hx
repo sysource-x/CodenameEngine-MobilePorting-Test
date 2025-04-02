@@ -23,7 +23,13 @@
 package mobile.objects;
 
 #if TOUCH_CONTROLS
+import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSignal.FlxTypedSignal;
+import openfl.display.BitmapData;
+import openfl.utils.Assets;
 
 /**
  * ...
@@ -133,39 +139,75 @@ class TouchPad extends MobileInputManager
 	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchButton
 	{
 		var button = new TouchButton(X, Y, IDs);
-		var buttonGraphicPath:String = "";
 		var buttonLabelGraphicPath:String = "";
-		for (folder in ['${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile', Paths.getPath('mobile')])
-			for (file in ["bg", Graphic.toUpperCase()])
-			{
-				final path:String = '${folder}/images/touchpad/${file}.png';
-				if (FileSystem.exists(path))
-					if (file == "bg")
-						buttonGraphicPath = path;
-					else
-						buttonLabelGraphicPath = path;
-			}
-		button.label = new FlxSprite();
-		button.loadGraphic(buttonGraphicPath);
-		button.label.loadGraphic(buttonLabelGraphicPath);
 
-		button.scale.set(0.243, 0.243);
+		if (Options.oldPadTexture)
+		{
+			var frames:FlxGraphic;
+			for (folder in [
+				'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
+				Paths.getPath('mobile')
+			])
+				for (file in [Graphic.toUpperCase()])
+				{
+					final path:String = '${folder}/images/virtualpad/${file}.png';
+					if (FileSystem.exists(path))
+						buttonLabelGraphicPath = path;
+				}
+
+			if (FileSystem.exists(buttonLabelGraphicPath))
+				frames = FlxGraphic.fromBitmapData(BitmapData.fromBytes(File.getBytes(buttonLabelGraphicPath)));
+			else
+				frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/images/virtualpad/default.png'));
+
+			button.antialiasing = Options.antialiasing;
+			button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
+
+			if (Color != -1)
+				button.color = Color;
+		}
+		else
+		{
+			var buttonGraphicPath:String = "";
+			for (folder in [
+				'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
+				Paths.getPath('mobile')
+			])
+				for (file in ["bg", Graphic.toUpperCase()])
+				{
+					final path:String = '${folder}/images/touchpad/${file}.png';
+					if (FileSystem.exists(path))
+						if (file == "bg")
+							buttonGraphicPath = path;
+						else
+							buttonLabelGraphicPath = path;
+				}
+
+			button.label = new FlxSprite();
+			button.loadGraphic(buttonGraphicPath);
+			button.label.loadGraphic(buttonLabelGraphicPath);
+			button.scale.set(0.243, 0.243);
+			button.label.antialiasing = button.antialiasing = Options.antialiasing;
+			button.color = Color;
+		}
+
 		button.updateHitbox();
 		button.updateLabelPosition();
-
-		button.statusBrightness = [1, 0.8, 0.4];
-		button.statusIndicatorType = BRIGHTNESS;
-		button.indicateStatus();
 
 		button.bounds.makeGraphic(Std.int(button.width - 50), Std.int(button.height - 50), FlxColor.TRANSPARENT);
 		button.centerBounds();
 
 		button.immovable = true;
 		button.solid = button.moves = false;
-		button.label.antialiasing = button.antialiasing = Options.antialiasing;
 		button.tag = Graphic.toUpperCase();
-		button.color = Color;
-		button.parentAlpha = button.alpha;
+
+		if (Options.oldPadTexture)
+		{
+			button.statusBrightness = [1, 0.8, 0.4];
+			button.statusIndicatorType = BRIGHTNESS;
+			button.indicateStatus();
+			button.parentAlpha = button.alpha;
+		}
 
 		return button;
 	}
@@ -174,10 +216,12 @@ class TouchPad extends MobileInputManager
 	{
 		var hideChars = ~/[\t\n\r]/;
 		var color:String = hideChars.split(color).join('').trim();
-		if(color.startsWith('0x')) color = color.substring(color.length - 6);
+		if (color.startsWith('0x'))
+			color = color.substring(color.length - 6);
 
 		var colorNum:Null<FlxColor> = FlxColor.fromString(color);
-		if(colorNum == null) colorNum = FlxColor.fromString('#$color');
+		if (colorNum == null)
+			colorNum = FlxColor.fromString('#$color');
 		return colorNum != null ? colorNum : FlxColor.WHITE;
 	}
 
