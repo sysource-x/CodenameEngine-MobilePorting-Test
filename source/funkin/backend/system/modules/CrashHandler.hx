@@ -102,12 +102,13 @@ class CrashHandler
 	#if sys
 	private static function saveErrorMessage(message:String):Void
 	{
+		final folder:String = #if android '/storage/emulated/0/.CodenameEngine/' + #end 'crash/';
 		try
 		{
-			if (!FileSystem.exists('crash'))
-				FileSystem.createDirectory('crash');
+			if (!FileSystem.exists(folder))
+				FileSystem.createDirectory(folder);
 
-			File.saveContent('crash/'
+			File.saveContent(folder
 				+ Date.now().toString().replace(' ', '-').replace(':', "'")
 				+ '.txt', message);
 		}
