@@ -10,7 +10,7 @@ using StringTools;
 
 class CreditsCodename extends funkin.options.OptionsScreen {
 	public var error:Bool = false;
-	public var author:String = "CodenameCrew";
+	public var author:String = "MobilePorting";
 	public var totalContributions:Int = 0;
 
 	public var mainDevCol:FlxColor = 0xFF9C35D5;
@@ -77,7 +77,7 @@ class CreditsCodename extends funkin.options.OptionsScreen {
 		Options.lastUpdated = curTime;
 
 		error = false;
-		var idk = GitHub.getContributors(author, "CodenameEngine", function(e) {
+		var idk = GitHub.getContributors(author, "CodenameEngine-Mobile", function(e) {
 			error = true;
 			var errMsg:String = 'Error while trying to download contributors list:\n${CoolUtil.removeIP(e.message)}';
 			Logs.traceColored([Logs.logText(errMsg.replace('\n', ' '), RED)], ERROR);
