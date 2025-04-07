@@ -102,7 +102,7 @@ class CrashHandler
 	#if sys
 	private static function saveErrorMessage(message:String):Void
 	{
-		final folder:String = #if android '/storage/emulated/0/.${lime.app.Application.current.meta.get('file')}/' + #end 'crash/';
+		final folder:String = #if android StorageUtil.getExternalStorageDirectory() + #end 'crash/';
 		try
 		{
 			if (!FileSystem.exists(folder))
