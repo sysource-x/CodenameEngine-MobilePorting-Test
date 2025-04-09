@@ -32,14 +32,29 @@ class ModsFolder {
 	 * Current mod folder. Will affect `Paths`.
 	 */
 	public static var currentModFolder:String = null;
+
 	/**
 	 * Path to the `mods` folder.
 	 */
-	public static var modsPath:String = #if android StorageUtil.getExternalStorageDirectory() + #elseif (!android && mobile) StorageUtil.getStorageDirectory() + #end "mods/";
+	// ORIGINAL: public static var modsPath:String = #if android StorageUtil.getExternalStorageDirectory() + #elseif (!android && mobile) StorageUtil.getStorageDirectory() + #end "mods/";
+
+    public static var modsPath:String = "mods/"; // Exists path mod
+    public static var addonsPath:String = "addons/"; // Exists path addons
+
+	/* just for debug
+	if (!Assets.exists(modsPath)) {
+		trace("path mods/ Not found.");
+	}
+	
+	if (!Assets.exists(addonsPath)) {
+		trace("path addons/ Not found.");
+	}
+	*/
+
 	/**
 	 * Path to the `addons` folder.
 	 */
-	public static var addonsPath:String = #if android StorageUtil.getExternalStorageDirectory() + #elseif (!android && mobile) StorageUtil.getStorageDirectory() + #end "addons/";
+	// ORIGINAL: public static var addonsPath:String = #if android StorageUtil.getExternalStorageDirectory() + #elseif (!android && mobile) StorageUtil.getStorageDirectory() + #end "addons/";
 
 	/**
 	 * If accessing a file as assets/data/global/LIB_mymod.hx should redirect to mymod:assets/data/global.hx
@@ -54,8 +69,8 @@ class ModsFolder {
 	 * Initialises `mods` folder.
 	 */
 	public static function init() {
-		if (!FileSystem.exists(modsPath)) FileSystem.createDirectory(modsPath);
-		if (!FileSystem.exists(addonsPath)) FileSystem.createDirectory(addonsPath);
+		// if (!FileSystem.exists(modsPath)) FileSystem.createDirectory(modsPath); This create a external path
+		// if (!FileSystem.exists(addonsPath)) FileSystem.createDirectory(addonsPath); This create a external path
 		if(!getModsList().contains(Options.lastLoadedMod))
 			Options.lastLoadedMod = null;
 	}
