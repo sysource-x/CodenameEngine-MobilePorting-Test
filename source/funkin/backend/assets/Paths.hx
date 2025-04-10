@@ -71,14 +71,6 @@ class Paths
 		#end
 	}
 
-	public static function sound(key:String, ?library:String):Sound {
-		#if mobile
-		return Assets.getSound('assets/sounds/$key.$SOUND_EXT');
-		#else
-		return Sound.fromFile('mods/sounds/$key.$SOUND_EXT');
-		#end
-	}
-
 	public static function music(key:String):Sound {
 		#if mobile
 		return Assets.getSound('assets/music/$key.$SOUND_EXT');
