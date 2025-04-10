@@ -33,7 +33,7 @@ import funkin.menus.*;
 import funkin.backend.scripting.events.*;
 
 //importing
-import funkin.backend.utils.Paths;
+import funkin.backend.assets.Paths;
 import openfl.display.Sprite;
 import openfl.media.SoundChannel;
 import openfl.text.TextField;
