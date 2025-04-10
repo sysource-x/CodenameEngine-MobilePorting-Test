@@ -54,8 +54,7 @@ import sys.io.File;
 import openfl.utils.Assets as OpenFLAssets;
 #end
 
-import CoolUtil;
-import Paths;
+import funkin.backend.utils.CoolUtil;
 
 using StringTools;
 
