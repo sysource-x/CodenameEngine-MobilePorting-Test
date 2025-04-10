@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Mobile Porting Team
+ * Copyright (C) 2025 sysource_xyz
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -20,50 +20,29 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package mobile.funkin.backend.utils;
+ package mobile.funkin.backend.utils;
 
-/**
- * A storage class for mobile.
- * @author Karim Akra and Homura Akemi (HomuHomu833)
- */
-class StorageUtil
-{
-	#if sys
-	public static function getStorageDirectory():String
-		return #if android haxe.io.Path.addTrailingSlash(AndroidContext.getExternalFilesDir()) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
-
-	#if android
-	// always force path due to haxe
-	public static function getExternalStorageDirectory():String
-		return '/storage/emulated/0/.CodenameEngine/';
-
-	public static function requestPermissions():Void
-	{
-		if (AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU)
-			AndroidPermissions.requestPermissions(['READ_MEDIA_IMAGES', 'READ_MEDIA_VIDEO', 'READ_MEDIA_AUDIO', 'READ_MEDIA_VISUAL_USER_SELECTED']);
-		else
-			AndroidPermissions.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE']);
-
-		if (!AndroidEnvironment.isExternalStorageManager())
-			AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-
-		if ((AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU
-			&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_MEDIA_IMAGES'))
-			|| (AndroidVersion.SDK_INT < AndroidVersionCode.TIRAMISU
-				&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')))
-			NativeAPI.showMessageBox('Notice!', 'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens');
-
-		try
-		{
-			if (!FileSystem.exists(StorageUtil.getStorageDirectory()))
-				FileSystem.createDirectory(StorageUtil.getStorageDirectory());
-		}
-		catch (e:Dynamic)
-		{
-			NativeAPI.showMessageBox('Error!', 'Please create directory to\n' + StorageUtil.getStorageDirectory() + '\nPress OK to close the game');
-			lime.system.System.exit(1);
-		}
-	}
-	#end
-	#end
-}
+ /**
+  * A storage class for mobile (internal assets only).
+  * Adapted to run without external storage access or permissions.
+  * @author sysource_xyz
+  */
+ class StorageUtil
+ {
+	 /**
+	  * Always returns the internal assets directory path.
+	  * This path is used for read-only assets bundled inside the .apk or .ipa file.
+	  */
+	 public static function getStorageDirectory():String
+	 {
+		 return "assets/"; // Internal path for bundled assets (read-only).
+	 }
+ 
+	 /**
+	  * No-op for mobile builds since we no longer use external storage or request permissions.
+	  */
+	 public static function requestPermissions():Void
+	 {
+		 // Do nothing. Permissions are not needed when using internal assets only.
+	 }
+ } 
