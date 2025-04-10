@@ -53,21 +53,6 @@ class CrashHandler
 		Lib.current.addChild(container);
 	}
 
-	static function callStackToString(stack:Array<CallStackItem>):String
-	{
-		return stack.map(function(item)
-		{
-			return switch (item)
-			{
-				case CFunction: "C Function";
-				case Module(m): 'Module $m';
-				case FilePos(s, file, line, col): '$file:$line';
-				case Method(classname, method): '$classname::$method';
-				case LocalFunction(name): 'Local function $name';
-			}
-		}).join("\n");
-	}
-
 	public static function init():Void
 	{
 		openfl.Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
