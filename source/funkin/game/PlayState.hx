@@ -777,9 +777,9 @@ class PlayState extends MusicBeatState
 
 		startingSong = true;
 		addHitbox();
-		#if TOUCH_CONTROLS
+	#if TOUCH_CONTROLS
 		hitbox.visible = true;
-		#end
+	#end
 		#if !android
 		addTouchPad('NONE', 'P');
 		addTouchPadCamera();
@@ -1194,7 +1194,7 @@ class PlayState extends MusicBeatState
 				onClick: function(_) {
 					if (!closingWindow) {
 						if (SaveWarning.selectionClass != null) FlxG.switchState(Type.createInstance(SaveWarning.selectionClass, []));
-					} else {
+		} else {
 						WindowUtils.preventClosing = false; WindowUtils.resetClosing();
 						Sys.exit(0);
 					}
@@ -1235,7 +1235,7 @@ class PlayState extends MusicBeatState
 
 		iconP1.health = healthBar.percent / 100;
 		iconP2.health = 1 - (healthBar.percent / 100);
-	}
+		}
 
 	function updateRatingStuff() {
 		scoreTxt.text = 'Score:$songScore';
@@ -1563,7 +1563,7 @@ class PlayState extends MusicBeatState
 					});
 				}
 				FlxG.save.flush();
-			}
+	}
 			else
 			{
 				trace('LOADING NEXT SONG');

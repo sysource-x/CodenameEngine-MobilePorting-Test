@@ -8,31 +8,27 @@ import funkin.menus.TitleState;
 import funkin.menus.BetaWarningState;
 import funkin.backend.chart.EventsData;
 import flixel.FlxState;
-#if mobile
-import mobile.funkin.backend.system.CopyState;
-#end
 
 /**
  * Simple state used for loading the game
  */
-class MainState extends FlxState {
+class MainState extends FlxState
+{
 	public static var initiated:Bool = false;
 	public static var betaWarningShown:Bool = false;
-	public override function create() {
+
+	public override function create()
+	{
 		super.create();
+
 		#if mobile
 		funkin.backend.system.Main.framerateSprite.setScale();
 		#end
+
 		if (!initiated)
 		{
 			Main.loadGameSettings();
-			#if mobile
-			if (!CopyState.checkExistingFiles())
-			{
-				FlxG.switchState(new CopyState());
-				return;
-			}
-			#end
+
 			#if TOUCH_CONTROLS
 			mobile.funkin.backend.utils.MobileData.init();
 			#end
@@ -50,18 +46,22 @@ class MainState extends FlxState {
 		Paths.assetsTree.reset();
 
 		#if MOD_SUPPORT
+		#if !mobile
 		var _lowPriorityAddons:Array<String> = [];
 		var _highPriorityAddons:Array<String> = [];
 		var _noPriorityAddons:Array<String> = [];
+
 		if (FileSystem.exists(ModsFolder.addonsPath) && FileSystem.isDirectory(ModsFolder.addonsPath)) {
 			for(i=>addon in [for(dir in FileSystem.readDirectory(ModsFolder.addonsPath)) if (FileSystem.isDirectory('${ModsFolder.addonsPath}$dir')) dir]) {
 				if (addon.startsWith("[LOW]")) _lowPriorityAddons.insert(0, addon);
 				else if (addon.startsWith("[HIGH]")) _highPriorityAddons.insert(0, addon);
 				else _noPriorityAddons.insert(0, addon);
 			}
+
 			for (addon in _lowPriorityAddons)
 				Paths.assetsTree.addLibrary(ModsFolder.loadModLib('${ModsFolder.addonsPath}$addon', StringTools.ltrim(addon.substr("[LOW]".length))));
 		}
+
 		if (ModsFolder.currentModFolder != null)
 			Paths.assetsTree.addLibrary(ModsFolder.loadModLib('${ModsFolder.modsPath}${ModsFolder.currentModFolder}', ModsFolder.currentModFolder));
 
@@ -69,6 +69,7 @@ class MainState extends FlxState {
 			for (addon in _noPriorityAddons) Paths.assetsTree.addLibrary(ModsFolder.loadModLib('${ModsFolder.addonsPath}$addon', addon));
 			for (addon in _highPriorityAddons) Paths.assetsTree.addLibrary(ModsFolder.loadModLib('${ModsFolder.addonsPath}$addon', StringTools.ltrim(addon.substr("[HIGH]".length))));
 		}
+		#end
 		#end
 
 		MusicBeatTransition.script = "";
@@ -85,6 +86,8 @@ class MainState extends FlxState {
 			betaWarningShown = true;
 		}
 
+		#if sys
 		CoolUtil.safeAddAttributes('./.temp/', NativeAPI.FileAttribute.HIDDEN);
+		#end
 	}
 }

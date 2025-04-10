@@ -32,7 +32,7 @@ class ALSoftConfig
 
 	public static function init():Void
 	{
-		var origin:String = #if android System.applicationStorageDirectory #elseif hl Sys.getCwd() #else Sys.programPath() #end;
+		var origin:String = #if android null #elseif hl Sys.getCwd() #else Sys.programPath() #end; // internal
 
 		var configPath:String = Path.directory(Path.withoutExtension(origin));
 		#if windows
@@ -40,10 +40,12 @@ class ALSoftConfig
 		#elseif mac
 		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
 		#elseif android
-		configPath = origin + 'openal/alsoft.conf';
-		FileSystem.createDirectory(Path.directory(configPath));
-		File.saveContent(configPath, ANDROID_OPENAL_CONFIG);
-		JNI.createStaticMethod('org/libsdl/app/SDLActivity', 'nativeSetenv', '(Ljava/lang/String;Ljava/lang/String;)V')("ALSOFT_CONF", configPath);
+	    // For no use external storage Android
+	    JNI.createStaticMethod(
+		    "org/libsdl/app/SDLActivity",
+		    "nativeSetenv",
+		    "(Ljava/lang/String;Ljava/lang/String;)V"
+	    )("ALSOFT_CONF", "/assets/internal/alsoft.conf");
 		#else
 		configPath += "/plugins/alsoft.conf";
 		#end
