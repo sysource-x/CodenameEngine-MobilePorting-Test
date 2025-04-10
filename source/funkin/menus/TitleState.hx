@@ -10,12 +10,38 @@ import flixel.util.FlxTimer;
 import openfl.Assets;
 import haxe.xml.Access;
 
+// importing
+import funkin.backend.utils.CoolUtil;
+import openfl.display.Sprite;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
+
 using StringTools;
 
 @:allow(funkin.backend.assets.ModsFolder)
 @:allow(funkin.backend.system.MainState)
 class TitleState extends MusicBeatState
 {
+	public function new() {
+		super();
+
+		#if mobile
+		CoolUtil.reimplementProjectAdaptations();
+		#end
+
+		var songs = CoolUtil.getInternalSongList();
+		var format = new TextFormat("_vcr", 24, 0xFFFFFF);
+	
+		for (i in 0...songs.length) {
+			var txt = new TextField();
+			txt.defaultTextFormat = format;
+			txt.text = songs[i];
+			txt.x = 20;
+			txt.y = 40 + (i * 30);
+			addChild(txt);
+		}
+	}
+
 	static var initialized:Bool = false;
 	static var hasCheckedUpdates:Bool = false;
 

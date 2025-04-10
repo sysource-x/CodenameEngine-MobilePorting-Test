@@ -11,6 +11,8 @@ import funkin.editors.EditorTreeMenu;
 import funkin.options.*;
 import funkin.options.type.*;
 
+import lime.utils.Assets;
+
 using StringTools;
 
 class CharterSelection extends EditorTreeMenu {
@@ -129,9 +131,9 @@ class CharterSelection extends EditorTreeMenu {
 
 		#if sys
 		// Make Directories
-		sys.FileSystem.createDirectory(songFolder);
-		sys.FileSystem.createDirectory('$songFolder/song');
-		sys.FileSystem.createDirectory('$songFolder/charts');
+		Assets.exists(songFolder);
+		Assets.exists('$songFolder/song');
+		Assets.exists('$songFolder/charts');
 
 		// Save Files
 		CoolUtil.safeSaveFile('$songFolder/meta.json', Json.stringify(creation.meta, "\t"));
@@ -206,7 +208,7 @@ class CharterSelection extends EditorTreeMenu {
 		optionsTree.members[optionsTree.members.length-1].insert(optionsTree.members[optionsTree.members.length-1].length-1, option);
 
 		// Add to Meta
-		var meta = Json.parse(sys.io.File.getContent('$songFolder/meta.json'));
+		var meta = Json.parse(Assets.getText('$songFolder/meta.json'));
 		if (meta.difficulties != null && !meta.difficulties.contains(name)) {
 			meta.difficulties.push(name);
 			CoolUtil.safeSaveFile('$songFolder/meta.json', Json.stringify(meta));

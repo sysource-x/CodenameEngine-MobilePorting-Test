@@ -64,12 +64,18 @@ class Main extends Sprite
 	{
 		super();
 
+		#if mobile
+		funkin.backend.utils.CoolUtil.reimplementProjectAdaptations();
+		#end
+
+		addChild(new funkin.states.TitleState());
+
 		instance = this;
 
 		#if mobile
-		#if android
-		StorageUtil.requestPermissions();
-		#end
+		//#if android
+		//StorageUtil.requestPermissions();
+		//#end
 		Sys.setCwd(StorageUtil.getStorageDirectory());
 		#end
 

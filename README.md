@@ -89,8 +89,14 @@ In the future (when the engine won't be a WIP anymore) we're gonna also publish 
 </details>
 
 <details>
-  <summary><h2>Mobile Credits</h2></summary>
+  <summary><h2>Reference:Mobile Credits</h2></summary>
 
-- Credits to [Homura](ttps://youtube.com/@HomuHomu833) to porting the engine
+- Credits to [Homura](ttps://youtube.com/@HomuHomu833) to porting the engine (external storage)
 - Credits to [Karim Akra](https://youtube.com/@Karim0690) to helping on the port
+</details>
+
+<details>
+  <summary><h2>Android Port of Internal Storage</h2></summary>
+
+- Credits to [sysource](ttps://youtube.com/@sysource_xyz) to porting the engine for internal storage
 </details>
