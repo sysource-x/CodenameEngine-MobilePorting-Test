@@ -62,7 +62,8 @@ class Paths
 	inline public static function xml(key:String, ?library:String)
 		return getPath('data/$key.xml', library);
 
-	public static function json(song:String, chartType:String = "normal"):String {
+	public static function json(song:String, chartType:String = "normal"):String
+	{
 		#if mobile
 		var path = 'assets/songs/$song/$chartType.json';
 		return Assets.exists(path) ? path : null;
@@ -71,7 +72,8 @@ class Paths
 		#end
 	}
 
-	public static function music(key:String):Sound {
+	public static function music(key:String):String
+	{
 		#if mobile
 		return Assets.getSound('assets/music/$key.$SOUND_EXT');
 		#else
