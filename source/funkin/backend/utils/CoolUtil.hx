@@ -27,13 +27,6 @@ import haxe.CallStack;
 // get Assets/ files
 import lime.utils.Assets;
 
-//#if desktop
-//import sys.io.File;
-//import sys.FileSystem;
-//#elseif mobile
-//import openfl.utils.Assets;
-//#end
-
 using StringTools;
 
 @:allow(funkin.game.PlayState)
@@ -42,53 +35,31 @@ using StringTools;
 #end
 class CoolUtil
 {
-	//public static function listSongs():Array<String>
-	//{
-	//	var songs:Array<String> = [];
-
-	//	#if mobile
-	    // Como no Android não é possível listar diretórios internos do .apk,
-		// você pode retornar uma lista fixa ou usar um JSON com os dados embutidos
-	//	songs = ['tutorial', 'bopeebo', 'fresh', 'dadbattle', 'spookeez', 'south', 'monster', 'pico', 'philly', 'blammed', 'satin panties', 'high', 'milf', 'cocoa', 'eggnog', 'winter horrorland', 'senpai', 'roses', 'thorns', 'ugh', 'guns', 'stress']; // Example
-	//	#else
-	//	if (FileSystem.exists("assets/songs"))
-	//	{
-	//		for (folder in FileSystem.readDirectory("assets/songs"))
-	//		{
-	//			if (FileSystem.isDirectory("assets/songs/" + folder))
-	//				songs.push(folder);
-	//		}
-	//	}
-    //    #end
-
-	//	return songs;
-	//}
-
 	#if mobile
-	public static function getInternalSongList():Array<String>
-	{
-		var base:Array<String> = [];
-		for (key in Assets.list())
-		{
-			if (key.startsWith("assets/songs/") && key.endsWith(".json"))
-			{
-				var parts = key.split("/");
-				if (parts.length >= 4)
-				{
-					var songName = parts[2];
-					if (!base.contains(songName))
-						base.push(songName);
-				}
-			}
-		}
-		return base;
-	}
-
-	public static function reimplementProjectAdaptations():Void
-	{
-		trace("Adapted to use assets files on Android/iOS.");
-	}
-	#end
+ 	public static function getInternalSongList():Array<String>
+ 	{
+ 		var base:Array<String> = [];
+ 		for (key in Assets.list())
+ 		{
+ 			if (key.startsWith("assets/songs/") && key.endsWith(".json"))
+ 			{
+ 				var parts = key.split("/");
+ 				if (parts.length >= 4)
+ 				{
+ 					var songName = parts[2];
+ 					if (!base.contains(songName))
+ 						base.push(songName);
+ 				}
+ 			}
+ 		}
+ 		return base;
+ 	}
+ 
+ 	public static function reimplementProjectAdaptations():Void
+ 	{
+ 		trace("Adapted to use assets files on Android/iOS.");
+ 	}
+ 	#end
 
 	public static function getLastExceptionStack():String {
 		return CallStack.toString(CallStack.exceptionStack());

@@ -11,48 +11,12 @@ import sys.io.File;
 using StringTools;
 using flixel.util.FlxArrayUtil;
 
-import openfl.Lib;
-import lime.system.System;
-import haxe.CallStack;
-import haxe.io.Path;
-import openfl.display.Sprite;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
-import openfl.text.TextFieldAutoSize;
-
 /**
  * Crash Handler.
  * @author YoshiCrafter29, Ne_Eo, MAJigsaw77 and Homura Akemi (HomuHomu833)
- * @author Sysource
  */
 class CrashHandler
 {
-	public static function crash(error:Dynamic):Void
-	{
-		final errMsg:String = Std.string(error) + "\n" + callStackToString(CallStack.exceptionStack());
-		showCrashMessage(errMsg);
-	}
-
-	static function showCrashMessage(message:String):Void
-	{
-		var textField:TextField = new TextField();
-		textField.defaultTextFormat = new TextFormat("_sans", 20, 0xFF0000, true);
-		textField.autoSize = TextFieldAutoSize.LEFT;
-		textField.multiline = true;
-		textField.wordWrap = true;
-		textField.width = Lib.current.stage.stageWidth - 40;
-		textField.x = 20;
-		textField.y = 20;
-		textField.text = "Oops! Something goes wrong!:\n\n" + message;
-
-		var container:Sprite = new Sprite();
-		container.graphics.beginFill(0x000000, 0.85);
-		container.graphics.drawRect(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
-		container.graphics.endFill();
-		container.addChild(textField);
-		Lib.current.addChild(container);
-	}
-
 	public static function init():Void
 	{
 		openfl.Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);

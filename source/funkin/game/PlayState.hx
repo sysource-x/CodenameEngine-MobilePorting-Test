@@ -32,40 +32,12 @@ import funkin.game.cutscenes.*;
 import funkin.menus.*;
 import funkin.backend.scripting.events.*;
 
-//importing
-import funkin.backend.assets.Paths;
-import openfl.display.Sprite;
-import openfl.media.SoundChannel;
-import openfl.text.TextField;
-
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.group.FlxGroup;
-import flixel.util.FlxColor;
-import openfl.Assets;
-
-import lime.utils.Assets as LimeAssets;
-
-#if desktop
-import sys.FileSystem;
-import sys.io.File;
-#elseif mobile
-import openfl.utils.Assets as OpenFLAssets;
-#end
-
-import funkin.backend.utils.CoolUtil;
-
 using StringTools;
 
 @:access(flixel.text.FlxText.FlxTextFormatRange)
 @:access(funkin.game.StrumLine)
 class PlayState extends MusicBeatState
 {
-	public static var curSong:String = '';
-	public var songData:Dynamic;
-	public var chartPath:String;
-
 	/**
 	 * Current PlayState instance.
 	 */
@@ -814,44 +786,6 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.create();
-
-		chartPath = 'assets/songs/$curSong/chart.json';
-
-		#if mobile
-		if (Assets.exists(chartPath))
-		{
-			var chartData:String = Assets.getText(chartPath);
-			if (chartData != null && chartData != '')
-			{
-				songData = haxe.Json.parse(chartData);
-			}
-			else
-			{
-				trace('Error: Chart is null.');
-			}
-		}
-		else
-		{
-			trace('Error: Chart not found.');
-		}
-		#else
-		if (FileSystem.exists(chartPath))
-		{
-			var chartData:String = File.getContent(chartPath);
-			if (chartData != null && chartData != '')
-			{
-				songData = haxe.Json.parse(chartData);
-			}
-			else
-			{
-				trace('Error: Chart is null.');
-			}
-		}
-		else
-		{
-			trace('Error: Chart not found.');
-		}
-		#end
 
 		for(s in introSprites)
 			if (s != null)

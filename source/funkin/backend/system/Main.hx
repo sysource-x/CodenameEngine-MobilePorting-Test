@@ -65,10 +65,8 @@ class Main extends Sprite
 		super();
 
 		#if mobile
-		funkin.backend.utils.CoolUtil.reimplementProjectAdaptations();
-		#end
-
-		addChild(new funkin.states.TitleState());
+ 		funkin.backend.utils.CoolUtil.reimplementProjectAdaptations();
+ 		#end
 
 		instance = this;
 

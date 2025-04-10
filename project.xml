@@ -59,14 +59,10 @@
 	<library name="assets"    preload="true"  if="PRELOAD_ALL"/>
 	<library name="assets"    preload="false" if="NO_PRELOAD_ALL" />
 
-	<!-- <section unless="TEST_BUILD">
+	<section unless="TEST_BUILD">
 		<assets path="assets/"    rename="assets"	exclude="*.ogg" if="web"/>
 		<assets path="assets/"    rename="assets"	exclude="*.mp3" unless="web"/>
-	</section> 
-	
-	 this gets all files and paths of assets folder of the apk for all devices (mobile) -->
-	<assets path="assets" rename="assets" include="**" />
-	<font path="assets/fonts/vcr.ttf" embed="true" />
+	</section>
 
 	<assets path='mods' rename='assets/mods' embed='false'/>
 	<assets path='addons' rename='assets/addons' embed='false'/>
