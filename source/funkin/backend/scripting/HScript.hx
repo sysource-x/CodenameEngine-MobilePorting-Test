@@ -108,8 +108,8 @@ class HScript extends Script {
 		], ERROR);
 
 		#if mobile
-                funkin.backend.utils.NativeAPI.showMessageBox("HSCRIPT ERROR", fn + err, MSG_ERROR);
-	        #end
+        funkin.backend.utils.NativeAPI.showMessageBox("HSCRIPT ERROR", fn + err, MSG_ERROR);
+	    #end
 	}
 
 	public override function setParent(parent:Dynamic) {

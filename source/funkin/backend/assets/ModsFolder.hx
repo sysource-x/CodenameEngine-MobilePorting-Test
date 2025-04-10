@@ -38,8 +38,21 @@ class ModsFolder {
 	 */
 	// ORIGINAL: public static var modsPath:String = #if android StorageUtil.getExternalStorageDirectory() + #elseif (!android && mobile) StorageUtil.getStorageDirectory() + #end "mods/";
 
-    public static var modsPath:String = "mods/"; // Exists path mod
-    public static var addonsPath:String = "addons/"; // Exists path addons
+    // public static var modsPath:String = "assets/mods/"; // Exists path mod
+    // public static var addonsPath:String = "assets/addons/"; // Exists path addons
+
+	public static var modsPath:String =
+    #if mobile
+    "assets/mods/"
+    #else
+    "assets/mods/" // ou onde você quiser manter no PC
+    #end;
+	public static var addonsPath:String =
+    #if mobile
+    "assets/addons/"
+    #else
+    "assets/addons/" // ou onde você quiser manter no PC
+    #end;
 
 	/* just for debug
 	if (!Assets.exists(modsPath)) {

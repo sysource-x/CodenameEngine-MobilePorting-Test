@@ -66,6 +66,7 @@
 
 	<assets path='mods' rename='assets/mods' embed='false'/>
 	<assets path='addons' rename='assets/addons' embed='false'/>
+
 	<assets path='art/readme.txt' rename='do NOT readme.txt' unless="mobile" />
 
 	<!-- OpenAL config -->

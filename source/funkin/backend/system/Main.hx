@@ -70,13 +70,6 @@ class Main extends Sprite
 
 		instance = this;
 
-		#if mobile
-		//#if android
-		//StorageUtil.requestPermissions();
-		//#end
-		Sys.setCwd(StorageUtil.getStorageDirectory());
-		#end
-
 		CrashHandler.init();
 
 		#if !web framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
@@ -148,14 +141,25 @@ class Main extends Sprite
 		#if (sys && TEST_BUILD)
 			trace("Used cne test / cne build. Switching into source assets.");
 			#if MOD_SUPPORT
-				ModsFolder.modsPath = Sys.getCwd() + '${pathBack}mods/';
-				ModsFolder.addonsPath = Sys.getCwd() + '${pathBack}addons/';
+			    #if mobile
+			    // Just internal assets for mobile, no need to change the path
+			    ModsFolder.modsPath = "assets/mods/";
+			    ModsFolder.addonsPath = "assets/addons/";
+		        #else
+			    // Desktop platforms, stay the comportament old
+			    ModsFolder.modsPath = Sys.getCwd() + '${pathBack}mods/';
+			    ModsFolder.addonsPath = Sys.getCwd() + '${pathBack}addons/';
+		        #end
 			#end
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + '${pathBack}assets/', true));
-		#elseif USE_ADAPTED_ASSETS
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + 'assets/', true));
-		#end
-
+			#if !mobile
+            // Just force the external library if we are not on Android/iOS
+            Paths.assetsTree.__defaultLibraries.push(
+                ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + '${pathBack}assets/', true)
+            );
+                Paths.assetsTree.__defaultLibraries.push(
+                ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + 'assets/', true)
+            );
+            #end
 
 		var lib = new AssetLibrary();
 		@:privateAccess
