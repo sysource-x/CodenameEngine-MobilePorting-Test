@@ -160,6 +160,7 @@ class Main extends Sprite
                 ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + 'assets/', true)
             );
             #end
+		#end
 
 		var lib = new AssetLibrary();
 		@:privateAccess
