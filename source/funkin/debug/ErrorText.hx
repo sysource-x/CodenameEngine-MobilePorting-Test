@@ -3,7 +3,7 @@ package funkin.debug;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
-import flixel.FlxColor;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
 class ErrorText extends FlxState
