@@ -22,9 +22,9 @@ class TitleState extends MusicBeatState
 	{
 		super();
 
-		//#if mobile
-		//CoolUtil.reimplementProjectAdaptations();
-		//#end
+		#if mobile
+		CoolUtil.reimplementProjectAdaptations();
+		#end
 	}
 
 	static var initialized:Bool = false;
@@ -40,15 +40,23 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		try {
+
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		MusicBeatState.skipTransIn = true;
 
 		startIntro();
 
-		super.create();
+		
+			super.create();
 
 		DiscordUtil.call("onMenuLoaded", ["Title Screen"]);
+
+	    } catch (e:Dynamic) {
+		    trace("Erro dentro do TitleState: " + e);
+		    FlxG.switchState(new ErrorText("Erro no TitleState:\n" + Std.string(e)));
+	    }
 	}
 
 	var logoBl:FlxSprite;

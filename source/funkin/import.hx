@@ -34,4 +34,5 @@ using funkin.backend.utils.CoolUtil;
 // import funkin.backend.assets.InternalAssetsLibrary;
 // import funkin.backend.assets.InternalModsFolder;
 import funkin.backend.assets.*;
+import funkin.debug.ErrorText;
 #end

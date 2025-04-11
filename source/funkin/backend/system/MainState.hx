@@ -9,6 +9,8 @@ import funkin.menus.BetaWarningState;
 import funkin.backend.chart.EventsData;
 import flixel.FlxState;
 
+import debug.ErrorText;
+
 /**
  * Simple state used for loading the game
  */
@@ -78,6 +80,13 @@ class MainState extends FlxState
 		DiscordUtil.init();
 		EventsData.reloadEvents();
 		TitleState.initialized = false;
+
+        try {
+	        FlxG.switchState(new TitleState());
+        } catch (e:Dynamic) {
+	        trace("Error loading TitleState: " + e);
+	        FlxG.switchState(new funkin.debug.ErrorText(Std.string(e)));
+        }
 
 		if (betaWarningShown)
 			FlxG.switchState(new TitleState());

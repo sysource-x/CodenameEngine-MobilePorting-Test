@@ -55,11 +55,11 @@ class CoolUtil
  		return base;
  	}
  
- 	//public static function reimplementProjectAdaptations():Void
- 	//{
- 	//	trace("Adapted to use assets files on Android/iOS.");
- 	//}
- 	//#end
+ 	public static function reimplementProjectAdaptations():Void
+ 	{
+ 		trace("Adapted to use assets files on Android/iOS.");
+ 	}
+ 	#end
 
 	public static function getLastExceptionStack():String {
 		return CallStack.toString(CallStack.exceptionStack());
