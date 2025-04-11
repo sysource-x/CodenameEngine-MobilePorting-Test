@@ -9,7 +9,7 @@ import funkin.menus.BetaWarningState;
 import funkin.backend.chart.EventsData;
 import flixel.FlxState;
 
-import debug.ErrorText;
+import funkin.debug.ErrorText;
 
 /**
  * Simple state used for loading the game

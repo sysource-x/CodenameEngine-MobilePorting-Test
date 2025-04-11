@@ -12,6 +12,8 @@ import haxe.xml.Access;
 
 import funkin.backend.utils.CoolUtil;
 
+import funkin.debug.ErrorText;
+
 using StringTools;
 
 @:allow(funkin.backend.assets.ModsFolder)
