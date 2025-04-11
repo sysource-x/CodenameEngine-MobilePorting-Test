@@ -6,7 +6,7 @@ import lime.utils.AssetLibrary;
 /**
  * Used to prevent crashes
  */
-class ModdableAssetsFolder extends ModsFolderLibrary {
+class ModdableAssetsFolder extends InternalAssetsLibrary {
 	public var oldLibrary:AssetLibrary;
 
 	public override function exists(id:String, type:String) {

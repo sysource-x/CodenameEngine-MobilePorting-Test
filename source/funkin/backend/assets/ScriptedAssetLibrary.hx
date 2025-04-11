@@ -16,7 +16,7 @@ import sys.FileSystem;
 
 using StringTools;
 
-class ScriptedAssetLibrary extends ModsFolderLibrary {
+class ScriptedAssetLibrary extends InternalAssetsLibrary {
 	public var script:Script;
 	public var scriptName:String;
 	private static var nullValue:Dynamic = {};
