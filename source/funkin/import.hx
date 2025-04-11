@@ -30,4 +30,8 @@ import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 
 using StringTools;
 using funkin.backend.utils.CoolUtil;
+
+// import funkin.backend.assets.InternalAssetsLibrary;
+// import funkin.backend.assets.InternalModsFolder;
+import funkin.backend.assets.*;
 #end

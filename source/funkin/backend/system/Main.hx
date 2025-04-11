@@ -64,9 +64,9 @@ class Main extends Sprite
 	{
 		super();
 
-		#if mobile
- 		funkin.backend.utils.CoolUtil.reimplementProjectAdaptations();
- 		#end
+		//#if mobile
+ 		//funkin.backend.utils.CoolUtil.reimplementProjectAdaptations();
+ 		//#end
 
 		instance = this;
 

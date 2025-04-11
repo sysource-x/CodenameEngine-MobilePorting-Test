@@ -22,9 +22,9 @@ class TitleState extends MusicBeatState
 	{
 		super();
 
-		#if mobile
-		CoolUtil.reimplementProjectAdaptations();
-		#end
+		//#if mobile
+		//CoolUtil.reimplementProjectAdaptations();
+		//#end
 	}
 
 	static var initialized:Bool = false;
